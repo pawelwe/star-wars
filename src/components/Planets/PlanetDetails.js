@@ -4,16 +4,32 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../actions/';
 import styles from './PlanetDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
+import swapi from '../../apis/swapi';
 
 class VehicleDetails extends PureComponent {
-  componentDidMount() {
+  async componentDidMount() {
     const planetId = this.props.match.params.id;
 
     this.props.fetchPlanet(planetId);
+
+    const {
+      details: { residents },
+    } = this.props;
+
+    const residentsPromises = residents.map(
+      async resident => await swapi.get(resident),
+    );
+
+    Promise.all(residentsPromises).then(values => {
+      const names = values.map(item => {
+        return item.data.name;
+      });
+      this.props.setResidents(names);
+    });
   }
 
   render() {
-    const { details } = this.props;
+    const { details, residentsNames } = this.props;
 
     if (!details) return null;
 
@@ -29,9 +45,9 @@ class VehicleDetails extends PureComponent {
           <li>
             <strong>Residents: </strong>
             <DetailsList
-              title="User"
+              namesList={residentsNames}
+              links={residents}
               linkPrefix="/people"
-              detailsList={residents}
             />
           </li>
         </ul>
@@ -44,11 +60,12 @@ class VehicleDetails extends PureComponent {
 
 const mapStateToProps = state => {
   const {
-    planets: { planet },
+    planets: { planet, residentsNames },
   } = state;
 
   return {
     details: planet,
+    residentsNames,
   };
 };
 

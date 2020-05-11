@@ -1,8 +1,8 @@
-export const extractLastUrlPartFromUrlString = string => {
+export const extractLastUrlPartFromUrlString = (string = '') => {
   const stringToArray = string.split('/');
   const extractedLink = stringToArray[stringToArray.length - 2];
 
-  return extractedLink;
+  return Number(extractedLink);
 };
 
 export const compareValues = (key, order = 'asc') => {

@@ -6,10 +6,18 @@ import styles from './VehiclesDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 
 class VehicleDetails extends PureComponent {
-  componentDidMount() {
+  async componentDidMount() {
     const vehicleId = this.props.match.params.id;
 
-    this.props.fetchVehicle(vehicleId);
+    await this.props.fetchVehicle(vehicleId);
+
+    const {
+      details: { pilots },
+    } = this.props;
+
+    pilots.forEach(async pilot => {
+      await this.props.fetchUsersInfo(pilot);
+    });
   }
 
   render() {
@@ -17,7 +25,7 @@ class VehicleDetails extends PureComponent {
 
     if (!details) return null;
 
-    const { name, vehicle_class, pilots } = details;
+    const { name, vehicle_class, pilots, usersNames } = details;
 
     return (
       <main className={styles['details']}>
@@ -29,9 +37,9 @@ class VehicleDetails extends PureComponent {
           <li>
             <strong>Users: </strong>
             <DetailsList
-              title="User"
+              namesList={usersNames}
+              links={pilots}
               linkPrefix="/people"
-              detailsList={pilots}
             />
           </li>
         </ul>

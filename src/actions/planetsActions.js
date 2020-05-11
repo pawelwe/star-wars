@@ -3,6 +3,8 @@ import { setBusy, setError } from './';
 
 export const SET_PLANETS = 'SET_PLANETS';
 export const SET_PLANET = 'SET_PLANET';
+export const ADD_MORE_INFO = 'ADD_MORE_INFO';
+export const SET_RESIDENTS = 'SET_RESIDENTS';
 
 const setPeople = data => {
   return {
@@ -14,6 +16,13 @@ const setPeople = data => {
 const setCharacter = data => {
   return {
     type: SET_PLANET,
+    payload: data,
+  };
+};
+
+export const setResidents = data => {
+  return {
+    type: SET_RESIDENTS,
     payload: data,
   };
 };
