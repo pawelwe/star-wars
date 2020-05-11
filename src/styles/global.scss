@@ -1,0 +1,60 @@
+$width: 1080px;
+$background: #eeeeee;
+$text: #222222;
+$emphasis: #126bb3;
+
+body {
+  background: $background;
+  color: $text;
+  font-family: 'Open Sans', 'sans-serif';
+  font-size: 1.6rem;
+  font-weight: 300;
+  padding: 0;
+}
+
+a {
+  color: $emphasis;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  margin: 0 0 1rem;
+}
+
+:global {
+  .container {
+    margin: 0 auto;
+    max-width: $width;
+  }
+
+  .fade-in {
+    animation: fadeIn 400ms;
+  }
+
+  .messages {
+    margin: 1rem 0;
+    padding: 1rem;
+
+    &:empty {
+      margin: 0;
+      padding: 0;
+    }
+
+    @include for-desktop {
+      padding: 1rem 0;
+    }
+  }
+}
+
+@keyframes :global(fadeIn) {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

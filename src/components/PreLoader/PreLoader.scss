@@ -1,0 +1,25 @@
+@import '../../styles/mixins';
+
+.wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0.5rem 0;
+  max-width: 40px;
+
+  @include for-tablet {
+    max-width: 65px;
+  }
+}
+
+.wrapper img {
+  max-width: 100%;
+}
+
+.text {
+  display: inline-block;
+  font-size: 1.4rem;
+  margin: 1rem auto;
+  max-width: 100%;
+}
