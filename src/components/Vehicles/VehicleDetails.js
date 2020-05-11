@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../actions/';
 import styles from './VehiclesDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
+import swapi from '../../apis/swapi';
 
 class VehicleDetails extends PureComponent {
   async componentDidMount() {
@@ -15,17 +16,26 @@ class VehicleDetails extends PureComponent {
       details: { pilots },
     } = this.props;
 
-    pilots.forEach(async pilot => {
-      await this.props.fetchUsersInfo(pilot);
-    });
+    const usersPromises = pilots.map(async pilot => await swapi.get(pilot));
+
+    Promise.all(usersPromises)
+      .then(values => {
+        const names = values.map(item => {
+          return item.data.name;
+        });
+        this.props.setUserNames(names);
+      })
+      .catch(({ message }) => {
+        console.warn('error:', message);
+      });
   }
 
   render() {
-    const { details } = this.props;
+    const { details, userNames } = this.props;
 
     if (!details) return null;
 
-    const { name, vehicle_class, pilots, usersNames } = details;
+    const { name, vehicle_class, pilots } = details;
 
     return (
       <main className={styles['details']}>
@@ -37,7 +47,7 @@ class VehicleDetails extends PureComponent {
           <li>
             <strong>Users: </strong>
             <DetailsList
-              namesList={usersNames}
+              namesList={userNames}
               links={pilots}
               linkPrefix="/people"
             />
@@ -52,11 +62,12 @@ class VehicleDetails extends PureComponent {
 
 const mapStateToProps = state => {
   const {
-    vehicles: { vehicle },
+    vehicles: { vehicle, userNames },
   } = state;
 
   return {
     details: vehicle,
+    userNames,
   };
 };
 

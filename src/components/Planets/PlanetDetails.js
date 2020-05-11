@@ -6,11 +6,11 @@ import styles from './PlanetDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 import swapi from '../../apis/swapi';
 
-class VehicleDetails extends PureComponent {
+class PlanetDetails extends PureComponent {
   async componentDidMount() {
     const planetId = this.props.match.params.id;
 
-    this.props.fetchPlanet(planetId);
+    await this.props.fetchPlanet(planetId);
 
     const {
       details: { residents },
@@ -20,12 +20,16 @@ class VehicleDetails extends PureComponent {
       async resident => await swapi.get(resident),
     );
 
-    Promise.all(residentsPromises).then(values => {
-      const names = values.map(item => {
-        return item.data.name;
+    Promise.all(residentsPromises)
+      .then(values => {
+        const names = values.map(item => {
+          return item.data.name;
+        });
+        this.props.setResidents(names);
+      })
+      .catch(({ message }) => {
+        console.warn('error:', message);
       });
-      this.props.setResidents(names);
-    });
   }
 
   render() {
@@ -69,4 +73,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(VehicleDetails);
+export default connect(mapStateToProps, actions)(PlanetDetails);

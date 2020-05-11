@@ -10,7 +10,7 @@ const initialState = {
   list: [],
   character: null,
   world: null,
-  vehiclesNames: null,
+  vehiclesNames: [],
 };
 
 export const peopleReducer = (state = initialState, action) => {

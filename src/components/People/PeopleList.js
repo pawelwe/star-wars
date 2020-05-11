@@ -21,12 +21,10 @@ class PeopleList extends PureComponent {
       <main>
         <h2>People</h2>
         <ul>
-          {peopleList.map(character => (
-            <li key={character.name}>
-              <NavLink
-                to={`people/${extractLastUrlPartFromUrlString(character.url)}`}
-              >
-                {character.name}
+          {peopleList.map(({ name, url }) => (
+            <li key={name}>
+              <NavLink to={`people/${extractLastUrlPartFromUrlString(url)}`}>
+                {name}
               </NavLink>
             </li>
           ))}

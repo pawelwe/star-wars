@@ -21,12 +21,10 @@ class PlanetsList extends PureComponent {
       <main>
         <h2>Planets</h2>
         <ul>
-          {planetsList.map(planet => (
-            <li key={planet.name}>
-              <NavLink
-                to={`planets/${extractLastUrlPartFromUrlString(planet.url)}`}
-              >
-                {planet.name}
+          {planetsList.map(({ name, url }) => (
+            <li key={name}>
+              <NavLink to={`planets/${extractLastUrlPartFromUrlString(url)}`}>
+                {name}
               </NavLink>
             </li>
           ))}

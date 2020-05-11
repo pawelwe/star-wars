@@ -8,10 +8,13 @@ export const DetailsList = ({ links, namesList, linkPrefix }) => {
 
   return links.map((link, index) => {
     const detailId = extractLastUrlPartFromUrlString(link);
+    const detailsPath = `${linkPrefix}/${detailId}`;
+    const detailName =
+      typeof namesList[index] === 'string' ? namesList[index] : '';
 
     return (
       <span key={index} className={styles['detail-link']}>
-        <NavLink to={`${linkPrefix}/${detailId}`}>{namesList[index]}</NavLink>
+        <NavLink to={detailsPath}>{detailName}</NavLink>
         {index !== links.length - 1 && ','}
       </span>
     );

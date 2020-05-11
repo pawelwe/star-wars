@@ -23,12 +23,16 @@ class PeopleDetails extends PureComponent {
       async vehicle => await swapi.get(vehicle),
     );
 
-    Promise.all(vehiclesPromises).then(values => {
-      const vehicles = values.map(item => {
-        return item.data.name;
+    Promise.all(vehiclesPromises)
+      .then(values => {
+        const vehicles = values.map(item => {
+          return item.data.name;
+        });
+        this.props.setVehicles(vehicles);
+      })
+      .catch(({ message }) => {
+        console.warn('error:', message);
       });
-      this.props.setVehicles(vehicles);
-    });
   }
 
   render() {

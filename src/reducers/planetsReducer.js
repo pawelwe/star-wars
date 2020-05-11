@@ -1,4 +1,4 @@
-import { SET_PLANET, SET_PLANETS, ADD_MORE_INFO, SET_RESIDENTS } from '../actions';
+import { SET_PLANET, SET_PLANETS, SET_RESIDENTS } from '../actions';
 
 const initialState = {
   list: [],
@@ -12,8 +12,6 @@ export const planetsReducer = (state = initialState, action) => {
       return { ...state, list: action.payload };
     case SET_PLANET:
       return { ...state, planet: action.payload };
-    case ADD_MORE_INFO:
-      return { ...state, planet: { ...state.planet, ...action.payload } };
     case SET_RESIDENTS:
       return { ...state, residentsNames: action.payload };
     default:

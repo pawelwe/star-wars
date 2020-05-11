@@ -50,7 +50,7 @@ export const fetchPeople = () => async dispatch => {
   }
 };
 
-export const fetchPlanetInfo = (infoUrl, prop = 'planet') => async dispatch => {
+export const fetchPlanetInfo = infoUrl => async dispatch => {
   dispatch(setBusy(true));
 
   try {

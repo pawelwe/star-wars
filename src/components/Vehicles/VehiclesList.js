@@ -15,18 +15,16 @@ class VehiclesList extends PureComponent {
   render() {
     const { vehicleList } = this.props;
 
-    if (!vehicleList || vehicleList.length === 0) return null;
+    if (!vehicleList || !vehicleList.length) return null;
 
     return (
       <main>
         <h2>Vehicles</h2>
         <ul>
-          {vehicleList.map(vehicle => (
-            <li key={vehicle.name}>
-              <NavLink
-                to={`vehicles/${extractLastUrlPartFromUrlString(vehicle.url)}`}
-              >
-                {vehicle.name}
+          {vehicleList.map(({ name, url }) => (
+            <li key={name}>
+              <NavLink to={`vehicles/${extractLastUrlPartFromUrlString(url)}`}>
+                {name}
               </NavLink>
             </li>
           ))}

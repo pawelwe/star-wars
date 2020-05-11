@@ -12,6 +12,7 @@ import VehiclesList from './Vehicles/VehiclesList.js';
 import VehicleDetails from './Vehicles/VehicleDetails.js';
 import PlanetsList from './Planets/PlanetsList.js';
 import PlanetDetails from './Planets/PlanetDetails.js';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary.js';
 
 import '../styles/index.scss';
 import styles from './StarWars.scss';
@@ -22,18 +23,20 @@ export const StarWars = () => {
   return (
     <Provider store={store}>
       <div className={styles['main-wrapper']}>
-        <Router history={customHistory}>
-          <SideBar />
-          <div className={styles['content']}>
-            <Route path="/" exact component={PeopleList} />
-            <Route path="/people/:id" exact component={PeopleDetails} />
-            <Route path="/vehicles" exact component={VehiclesList} />
-            <Route path="/vehicles/:id" exact component={VehicleDetails} />
-            <Route path="/planets" exact component={PlanetsList} />
-            <Route path="/planets/:id" exact component={PlanetDetails} />
-            <Messages />
-          </div>
-        </Router>
+        <ErrorBoundary>
+          <Router history={customHistory}>
+            <SideBar />
+            <div className={styles['content']}>
+              <Route path="/" exact component={PeopleList} />
+              <Route path="/people/:id" exact component={PeopleDetails} />
+              <Route path="/vehicles" exact component={VehiclesList} />
+              <Route path="/vehicles/:id" exact component={VehicleDetails} />
+              <Route path="/planets" exact component={PlanetsList} />
+              <Route path="/planets/:id" exact component={PlanetDetails} />
+              <Messages />
+            </div>
+          </Router>
+        </ErrorBoundary>
       </div>
     </Provider>
   );
