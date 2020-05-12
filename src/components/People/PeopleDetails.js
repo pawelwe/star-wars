@@ -5,7 +5,6 @@ import * as actions from '../../actions/';
 import styles from './PeopleDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 import { extractLastUrlPartFromUrlString } from '../../utils/utils';
-import swapi from '../../apis/swapi';
 
 class PeopleDetails extends PureComponent {
   async componentDidMount() {
@@ -17,26 +16,13 @@ class PeopleDetails extends PureComponent {
       details: { homeworld, vehicles = [] },
     } = this.props;
 
-    this.props.fetchPlanetInfo(homeworld);
+    await this.props.fetchPlanetInfo(homeworld);
 
-    const vehiclesPromises = vehicles.map(
-      async vehicle => await swapi.get(vehicle),
-    );
-
-    Promise.all(vehiclesPromises)
-      .then(values => {
-        const vehicles = values.map(item => {
-          return item.data.name;
-        });
-        this.props.setVehicles(vehicles);
-      })
-      .catch(({ message }) => {
-        console.warn('error:', message);
-      });
+    await this.props.fetchAdditionalPeopleData(vehicles);
   }
 
   render() {
-    const { details, planet, vehiclesNames } = this.props;
+    const { details, planet, vehiclesNames, isBusy } = this.props;
 
     if (!details) return null;
 
@@ -55,6 +41,7 @@ class PeopleDetails extends PureComponent {
               namesList={vehiclesNames}
               links={vehicles}
               linkPrefix="/vehicles"
+              isBusy={isBusy}
             />
           </li>
           <li>
@@ -76,12 +63,14 @@ class PeopleDetails extends PureComponent {
 const mapStateToProps = state => {
   const {
     people: { character, world, vehiclesNames },
+    main: { isBusy },
   } = state;
 
   return {
     details: character,
     planet: world,
     vehiclesNames,
+    isBusy,
   };
 };
 

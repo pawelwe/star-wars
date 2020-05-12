@@ -50,6 +50,20 @@ export const fetchPeople = () => async dispatch => {
   }
 };
 
+export const fetchCharacter = id => async dispatch => {
+  dispatch(setBusy(true));
+
+  try {
+    const { data } = await swapi.get(`/people/${id}`);
+
+    dispatch(setCharacter(data));
+    dispatch(setBusy(false));
+  } catch ({ message }) {
+    dispatch(setError(message));
+    dispatch(setBusy(false));
+  }
+};
+
 export const fetchPlanetInfo = infoUrl => async dispatch => {
   dispatch(setBusy(true));
 
@@ -66,16 +80,21 @@ export const fetchPlanetInfo = infoUrl => async dispatch => {
   }
 };
 
-export const fetchCharacter = id => async dispatch => {
+export const fetchAdditionalPeopleData = dataUrlArray => async dispatch => {
   dispatch(setBusy(true));
 
-  try {
-    const { data } = await swapi.get(`/people/${id}`);
+  const dataPromises = dataUrlArray.map(item => swapi.get(item));
 
-    dispatch(setCharacter(data));
-    dispatch(setBusy(false));
-  } catch ({ message }) {
-    dispatch(setError(message));
-    dispatch(setBusy(false));
-  }
+  Promise.all(dataPromises)
+    .then(values => {
+      const mappedData = values.map(item => {
+        return item.data.name;
+      });
+      dispatch(setVehicles(mappedData));
+      dispatch(setBusy(false));
+    })
+    .catch(({ message }) => {
+      dispatch(setError(message));
+      dispatch(setBusy(false));
+    });
 };

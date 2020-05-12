@@ -56,3 +56,22 @@ export const fetchPlanet = id => async dispatch => {
     dispatch(setBusy(false));
   }
 };
+
+export const fetchAdditionalResidentsData = dataUrlArray => async dispatch => {
+  dispatch(setBusy(true));
+
+  const dataPromises = dataUrlArray.map(item => swapi.get(item));
+
+  Promise.all(dataPromises)
+    .then(values => {
+      const mappedData = values.map(item => {
+        return item.data.name;
+      });
+      dispatch(setResidents(mappedData));
+      dispatch(setBusy(false));
+    })
+    .catch(({ message }) => {
+      dispatch(setError(message));
+      dispatch(setBusy(false));
+    });
+};

@@ -19,13 +19,6 @@ const setVehicle = data => {
   };
 };
 
-const addMoreInfo = data => {
-  return {
-    type: ADD_MORE_INFO,
-    payload: data,
-  };
-};
-
 export const setUserNames = data => {
   return {
     type: SET_USER_NAMES,
@@ -61,4 +54,23 @@ export const fetchVehicle = id => async dispatch => {
     dispatch(setError(message));
     dispatch(setBusy(false));
   }
+};
+
+export const fetchAdditionalUsersData = dataUrlArray => async dispatch => {
+  dispatch(setBusy(true));
+
+  const dataPromises = dataUrlArray.map(item => swapi.get(item));
+
+  Promise.all(dataPromises)
+    .then(values => {
+      const mappedData = values.map(item => {
+        return item.data.name;
+      });
+      dispatch(setUserNames(mappedData));
+      dispatch(setBusy(false));
+    })
+    .catch(({ message }) => {
+      dispatch(setError(message));
+      dispatch(setBusy(false));
+    });
 };
