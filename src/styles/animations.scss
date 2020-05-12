@@ -1,16 +1,20 @@
+@import './mixins';
+
 :global {
   .fade-in {
     animation: fadeIn 350ms ease-out forwards;
     opacity: 0;
   }
 
-  .slide-fade-in {
-    animation: slideFadeIn 700ms ease-out forwards;
-    opacity: 0;
-  }
-
   .with-delay-05 {
     animation-delay: 500ms;
+  }
+
+  @include for-tablet {
+    .slide-fade-in--desktop {
+      animation: slideFadeIn 700ms ease-out forwards;
+      opacity: 0;
+    }
   }
 }
 

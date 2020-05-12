@@ -10,9 +10,9 @@ const SideBar = props => {
     <nav className={styles['navigation']} data-testid="sidebar">
       <div className={`${styles['navigation-content']}`}>
         <NavLink to={'/'}>
-          <img src={logo} alt="logo"  />
+          <img src={logo} alt="logo" />
         </NavLink>
-        <ul className="slide-fade-in with-delay-05">
+        <ul className="slide-fade-in--desktop with-delay-05">
           <li>
             <NavLink
               isActive={() =>
