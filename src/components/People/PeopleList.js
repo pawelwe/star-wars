@@ -6,6 +6,8 @@ import {
   compareValues,
   extractLastUrlPartFromUrlString,
 } from '../../utils/utils';
+import styles from './PeopleList.scss';
+import avatar from './assets/avatar.jpg';
 
 export class PeopleList extends PureComponent {
   componentDidMount() {
@@ -22,7 +24,8 @@ export class PeopleList extends PureComponent {
         <h2>People</h2>
         <ul>
           {peopleList.map(({ name, url }) => (
-            <li key={name}>
+            <li key={name} className={styles['list-item']}>
+              <img src={avatar} alt="avatar" />
               <NavLink to={`people/${extractLastUrlPartFromUrlString(url)}`}>
                 {name}
               </NavLink>

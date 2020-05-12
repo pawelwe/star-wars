@@ -5,6 +5,7 @@ import * as actions from '../../actions/';
 import styles from './PeopleDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 import { extractLastUrlPartFromUrlString } from '../../utils/utils';
+import avatar from './assets/avatar.jpg';
 
 export class PeopleDetails extends PureComponent {
   async componentDidMount() {
@@ -31,6 +32,7 @@ export class PeopleDetails extends PureComponent {
     return (
       <main className={styles['details']} data-testid="people-details">
         <h2>{name}</h2>
+        <img src={avatar} alt="avatar" />
         <ul>
           <li>
             <strong>Gender:</strong> {gender}
