@@ -29,7 +29,6 @@
     font-weight: 600;
     margin-left: 1.5rem;
 
-
     @include for-tablet {
       margin: 0 0 0.5rem 0;
     }
@@ -40,6 +39,12 @@
 
     @include for-tablet {
       margin-bottom: 1rem;
+    }
+  }
+
+  :global {
+    li .active {
+      color: #ffbc0e;
     }
   }
 }

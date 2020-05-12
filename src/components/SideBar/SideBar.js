@@ -1,9 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import styles from './SideBar.scss';
 import logo from './assets/star-wars.svg';
 
-const SideBar = () => {
+const SideBar = props => {
+  const currentPath = props.location.pathname;
+
   return (
     <nav className={styles['navigation']} data-testid="sidebar">
       <NavLink to={'/'}>
@@ -11,7 +13,14 @@ const SideBar = () => {
       </NavLink>
       <ul>
         <li>
-          <NavLink to={'/'}>People</NavLink>
+          <NavLink
+            isActive={() =>
+              currentPath === '/' || currentPath.includes('people')
+            }
+            to={'/'}
+          >
+            People
+          </NavLink>
         </li>
         <li>
           <NavLink to={'/vehicles'}>Vehicles</NavLink>
@@ -24,4 +33,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default withRouter(SideBar);
