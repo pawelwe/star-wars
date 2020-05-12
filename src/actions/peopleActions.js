@@ -80,7 +80,7 @@ export const fetchPlanetInfo = infoUrl => async dispatch => {
   }
 };
 
-export const fetchAdditionalPeopleData = dataUrlArray => async dispatch => {
+export const fetchAdditionalPeopleData = dataUrlArray => dispatch => {
   dispatch(setBusy(true));
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));

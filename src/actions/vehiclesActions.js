@@ -56,7 +56,7 @@ export const fetchVehicle = id => async dispatch => {
   }
 };
 
-export const fetchAdditionalUsersData = dataUrlArray => async dispatch => {
+export const fetchAdditionalUsersData = dataUrlArray => dispatch => {
   dispatch(setBusy(true));
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));
