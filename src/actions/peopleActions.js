@@ -4,16 +4,16 @@ import { setBusy, setError } from './';
 export const SET_PEOPLE = 'SET_PEOPLE';
 export const SET_CHARACTER = 'SET_CHARACTER';
 export const SET_WORLD = 'SET_WORLD';
-export const SET_VEHICLES = 'SET_VEHICLES';
+export const SET_USER_VEHICLES = 'SET_USER_VEHICLES';
 
-const setPeople = data => {
+export const setPeople = data => {
   return {
     type: SET_PEOPLE,
     payload: data,
   };
 };
 
-const setCharacter = data => {
+export const setCharacter = data => {
   return {
     type: SET_CHARACTER,
     payload: data,
@@ -27,9 +27,9 @@ export const setWorld = data => {
   };
 };
 
-export const setVehicles = data => {
+export const setUserVehicles = data => {
   return {
-    type: SET_VEHICLES,
+    type: SET_USER_VEHICLES,
     payload: data,
   };
 };
@@ -90,7 +90,7 @@ export const fetchAdditionalPeopleData = dataUrlArray => async dispatch => {
       const mappedData = values.map(item => {
         return item.data.name;
       });
-      dispatch(setVehicles(mappedData));
+      dispatch(setUserVehicles(mappedData));
       dispatch(setBusy(false));
     })
     .catch(({ message }) => {

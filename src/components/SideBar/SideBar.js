@@ -5,7 +5,7 @@ import logo from './assets/star-wars.svg';
 
 const SideBar = () => {
   return (
-    <nav className={styles['navigation']}>
+    <nav className={styles['navigation']} data-testid="sidebar">
       <NavLink to={'/'}>
         <img src={logo} alt="logo" />
       </NavLink>

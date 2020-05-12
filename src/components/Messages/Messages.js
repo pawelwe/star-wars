@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import { PreLoader } from '../PreLoader/PreLoader';
 import styles from './Messages.scss';
 
-const Messages = ({ error, isBusy }) => {
+export const Messages = ({ error, isBusy }) => {
   return (
     <>
-      {error && <p className={styles['message']}>:( {error}</p>}
+      {error && (
+        <p className={styles['message']} data-testid="error">
+          :( {error}
+        </p>
+      )}
       {isBusy && (
-        <div className={styles['message']}>
+        <div className={styles['message']} data-testid="messages">
           <PreLoader />
         </div>
       )}

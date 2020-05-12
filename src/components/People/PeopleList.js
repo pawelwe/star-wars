@@ -7,7 +7,7 @@ import {
   extractLastUrlPartFromUrlString,
 } from '../../utils/utils';
 
-class PeopleList extends PureComponent {
+export class PeopleList extends PureComponent {
   componentDidMount() {
     this.props.fetchPeople();
   }
@@ -18,7 +18,7 @@ class PeopleList extends PureComponent {
     if (!peopleList || peopleList.length === 0) return null;
 
     return (
-      <main>
+      <main data-testid="people-list">
         <h2>People</h2>
         <ul>
           {peopleList.map(({ name, url }) => (

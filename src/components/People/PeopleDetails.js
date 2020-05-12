@@ -6,19 +6,19 @@ import styles from './PeopleDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 import { extractLastUrlPartFromUrlString } from '../../utils/utils';
 
-class PeopleDetails extends PureComponent {
+export class PeopleDetails extends PureComponent {
   async componentDidMount() {
     const characterId = this.props.match.params.id;
 
     await this.props.fetchCharacter(characterId);
 
     const {
-      details: { homeworld, vehicles = [] },
+      details: { homeworld, vehicles },
     } = this.props;
 
-    await this.props.fetchPlanetInfo(homeworld);
+    this.props.fetchPlanetInfo(homeworld);
 
-    await this.props.fetchAdditionalPeopleData(vehicles);
+    this.props.fetchAdditionalPeopleData(vehicles);
   }
 
   render() {
@@ -29,7 +29,7 @@ class PeopleDetails extends PureComponent {
     const { name, homeworld, gender, vehicles } = details;
 
     return (
-      <main className={styles['details']}>
+      <main className={styles['details']} data-testid="people-details">
         <h2>{name}</h2>
         <ul>
           <li>

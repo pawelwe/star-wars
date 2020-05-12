@@ -5,7 +5,7 @@ import { extractLastUrlPartFromUrlString } from '../../utils/utils';
 
 export const DetailsList = ({ links, namesList, linkPrefix, isBusy }) => {
   if (isBusy) return <span>Loading additional data...</span>;
-  if (!links || !links.length || !namesList) return 'n/a';
+  if (!links || !links.length || !namesList || !namesList.length) return 'n/a';
 
   return links.map((link, index) => {
     const detailId = extractLastUrlPartFromUrlString(link);

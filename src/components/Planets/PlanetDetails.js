@@ -15,7 +15,7 @@ class PlanetDetails extends PureComponent {
       details: { residents },
     } = this.props;
 
-    await this.props.fetchAdditionalResidentsData(residents);
+    this.props.fetchAdditionalResidentsData(residents);
   }
 
   render() {

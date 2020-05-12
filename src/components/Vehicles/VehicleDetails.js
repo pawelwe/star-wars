@@ -15,7 +15,7 @@ class VehicleDetails extends PureComponent {
       details: { pilots },
     } = this.props;
 
-    await this.props.fetchAdditionalUsersData(pilots);
+    this.props.fetchAdditionalUsersData(pilots);
   }
 
   render() {
