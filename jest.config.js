@@ -9,5 +9,6 @@ module.exports = {
   },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'babel-jest',
+    "\\.(jpg|jpeg|png|gif)$": "<rootDir>/fileMock.js",
   },
 };
