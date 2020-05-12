@@ -18,7 +18,7 @@ class PlanetsList extends PureComponent {
     if (!planetsList || planetsList.length === 0) return null;
 
     return (
-      <main>
+      <main className="fade-in">
         <h2>Planets</h2>
         <ul>
           {planetsList.map(({ name, url }) => (

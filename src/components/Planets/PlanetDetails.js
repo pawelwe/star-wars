@@ -26,7 +26,7 @@ class PlanetDetails extends PureComponent {
     const { name, population, residents } = details;
 
     return (
-      <main className={styles['details']}>
+      <main className={`${styles['details']} fade-in`}>
         <h2>{name}</h2>
         <ul>
           <li>

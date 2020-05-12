@@ -18,7 +18,7 @@ class VehiclesList extends PureComponent {
     if (!vehicleList || !vehicleList.length) return null;
 
     return (
-      <main>
+      <main className="fade-in">
         <h2>Vehicles</h2>
         <ul>
           {vehicleList.map(({ name, url }) => (

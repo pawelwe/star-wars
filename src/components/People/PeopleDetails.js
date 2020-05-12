@@ -30,7 +30,10 @@ export class PeopleDetails extends PureComponent {
     const { name, homeworld, gender, vehicles } = details;
 
     return (
-      <main className={styles['details']} data-testid="people-details">
+      <main
+        className={`${styles['details']} fade-in`}
+        data-testid="people-details"
+      >
         <h2>{name}</h2>
         <img src={avatar} alt="avatar" />
         <ul>

@@ -8,27 +8,29 @@ const SideBar = props => {
 
   return (
     <nav className={styles['navigation']} data-testid="sidebar">
-      <NavLink to={'/'}>
-        <img src={logo} alt="logo" />
-      </NavLink>
-      <ul>
-        <li>
-          <NavLink
-            isActive={() =>
-              currentPath === '/' || currentPath.includes('people')
-            }
-            to={'/'}
-          >
-            People
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to={'/vehicles'}>Vehicles</NavLink>
-        </li>
-        <li>
-          <NavLink to={'/planets'}>Planets</NavLink>
-        </li>
-      </ul>
+      <div className={`${styles['navigation-content']}`}>
+        <NavLink to={'/'}>
+          <img src={logo} alt="logo"  />
+        </NavLink>
+        <ul className="slide-fade-in with-delay-05">
+          <li>
+            <NavLink
+              isActive={() =>
+                currentPath === '/' || currentPath.includes('people')
+              }
+              to={'/'}
+            >
+              People
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={'/vehicles'}>Vehicles</NavLink>
+          </li>
+          <li>
+            <NavLink to={'/planets'}>Planets</NavLink>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };

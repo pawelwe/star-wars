@@ -26,7 +26,7 @@ class VehicleDetails extends PureComponent {
     const { name, vehicle_class, pilots } = details;
 
     return (
-      <main className={styles['details']}>
+      <main className={`${styles['details']} fade-in`}>
         <h2>{name}</h2>
         <ul>
           <li>

@@ -1,0 +1,46 @@
+:global {
+  .fade-in {
+    animation: fadeIn 350ms ease-out forwards;
+    opacity: 0;
+  }
+
+  .slide-fade-in {
+    animation: slideFadeIn 700ms ease-out forwards;
+    opacity: 0;
+  }
+
+  .with-delay-05 {
+    animation-delay: 500ms;
+  }
+}
+
+@keyframes :global(fadeIn) {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes :global(fadeInHalf) {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes :global(slideFadeIn) {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 1;
+  }
+}

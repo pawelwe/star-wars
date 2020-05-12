@@ -1,50 +1,57 @@
 @import '../../styles/mixins';
 
 .navigation {
-  align-items: center;
-  justify-content: space-between;
   background: #222222;
-  display: flex;
-  padding: 1rem;
 
-  @include for-tablet {
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 100vh;
-    width: 260px;
-  }
-
-  ul {
+  &-content {
+    align-items: center;
+    justify-content: space-between;
     display: flex;
+    padding: 1rem;
 
     @include for-tablet {
+      align-items: flex-start;
       flex-direction: column;
+      justify-content: flex-start;
+      min-height: 100vh;
+      width: 260px;
     }
-  }
 
-  ul a {
-    color: #ffffff;
-    display: block;
-    font-weight: 600;
-    margin-left: 1.5rem;
+    ul {
+      display: flex;
 
-    @include for-tablet {
-      margin: 0 0 0.5rem 0;
+      @include for-tablet {
+        flex-direction: column;
+      }
     }
-  }
 
-  img {
-    display: block;
+    ul a {
+      color: #ffffff;
+      display: block;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      text-decoration: none;
+      transition: color 500ms ease-out;
+      will-change: color;
 
-    @include for-tablet {
-      margin-bottom: 1rem;
+      @include for-tablet {
+        margin: 0 0 0.5rem 0;
+      }
+    }
+
+    img {
+      display: block;
+
+      @include for-tablet {
+        margin-bottom: 1rem;
+      }
     }
   }
 
   :global {
     li .active {
       color: #ffbc0e;
+      transition: color 200ms ease-out;
     }
   }
 }

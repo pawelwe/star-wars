@@ -20,7 +20,7 @@ export class PeopleList extends PureComponent {
     if (!peopleList || peopleList.length === 0) return null;
 
     return (
-      <main data-testid="people-list">
+      <main data-testid="people-list" className="fade-in">
         <h2>People</h2>
         <ul>
           {peopleList.map(({ name, url }) => (

@@ -31,10 +31,6 @@ h2 {
     max-width: $width;
   }
 
-  .fade-in {
-    animation: fadeIn 400ms;
-  }
-
   .messages {
     margin: 1rem 0;
     padding: 1rem;
@@ -50,11 +46,3 @@ h2 {
   }
 }
 
-@keyframes :global(fadeIn) {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
