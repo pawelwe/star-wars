@@ -4,8 +4,14 @@ import styles from './DetailsList.scss';
 import { extractLastUrlPartFromUrlString } from '../../utils/utils';
 
 export const DetailsList = ({ links, namesList, linkPrefix, isBusy }) => {
-  if (isBusy) return <span data-testid="loading more">Loading additional data...</span>;
-  if (!links || !links.length || !namesList || !namesList.length) return 'n/a';
+  if (isBusy) {
+    return <span data-testid="loading more">Loading additional data...</span>;
+  }
+
+  const noMatchingDetails =
+    !links || !links.length || !namesList || !namesList.length;
+
+  if (noMatchingDetails) return 'n/a';
 
   return links.map((link, index) => {
     const detailId = extractLastUrlPartFromUrlString(link);
