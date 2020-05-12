@@ -2,8 +2,10 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, argv) => {
-  var isDevelopmentMode = argv.mode === 'development';
-  var devtool = isDevelopmentMode ? 'eval-source-map' : 'nosources-source-map';
+  const isDevelopmentMode = argv.mode === 'development';
+  const devtool = isDevelopmentMode
+    ? 'eval-source-map'
+    : 'nosources-source-map';
 
   return {
     mode: argv.mode,
