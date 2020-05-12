@@ -27,6 +27,7 @@ export const setUserNames = data => {
 };
 
 export const fetchVehicles = () => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -43,6 +44,7 @@ export const fetchVehicles = () => async dispatch => {
 };
 
 export const fetchVehicle = id => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -57,6 +59,7 @@ export const fetchVehicle = id => async dispatch => {
 };
 
 export const fetchAdditionalUsersData = dataUrlArray => dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));

@@ -35,6 +35,7 @@ export const setUserVehicles = data => {
 };
 
 export const fetchPeople = () => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -51,6 +52,7 @@ export const fetchPeople = () => async dispatch => {
 };
 
 export const fetchCharacter = id => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -65,6 +67,7 @@ export const fetchCharacter = id => async dispatch => {
 };
 
 export const fetchPlanetInfo = infoUrl => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -81,6 +84,7 @@ export const fetchPlanetInfo = infoUrl => async dispatch => {
 };
 
 export const fetchAdditionalPeopleData = dataUrlArray => dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));

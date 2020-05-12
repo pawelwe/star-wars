@@ -4,7 +4,7 @@ import styles from './DetailsList.scss';
 import { extractLastUrlPartFromUrlString } from '../../utils/utils';
 
 export const DetailsList = ({ links, namesList, linkPrefix, isBusy }) => {
-  if (isBusy) return <span>Loading additional data...</span>;
+  if (isBusy) return <span data-testid="loading more">Loading additional data...</span>;
   if (!links || !links.length || !namesList || !namesList.length) return 'n/a';
 
   return links.map((link, index) => {

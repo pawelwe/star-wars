@@ -27,6 +27,7 @@ export const setResidents = data => {
 };
 
 export const fetchPlanets = () => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -43,6 +44,7 @@ export const fetchPlanets = () => async dispatch => {
 };
 
 export const fetchPlanet = id => async dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   try {
@@ -57,6 +59,7 @@ export const fetchPlanet = id => async dispatch => {
 };
 
 export const fetchAdditionalResidentsData = dataUrlArray => dispatch => {
+  dispatch(setError(null));
   dispatch(setBusy(true));
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));
