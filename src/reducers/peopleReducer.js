@@ -3,6 +3,7 @@ import {
   SET_CHARACTER,
   SET_WORLD,
   SET_USER_VEHICLES,
+  SET_CACHED_DATA,
 } from '../actions';
 
 const initialState = {
@@ -22,6 +23,13 @@ export const peopleReducer = (state = initialState, action) => {
       return { ...state, world: action.payload };
     case SET_USER_VEHICLES:
       return { ...state, vehiclesNames: action.payload };
+    case SET_CACHED_DATA:
+      return {
+        ...state,
+        character: action.payload.character,
+        world: action.payload.world,
+        vehiclesNames: action.payload.vehiclesNames,
+      };
     default:
       return state;
   }

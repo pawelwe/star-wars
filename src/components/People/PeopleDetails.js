@@ -11,16 +11,41 @@ export class PeopleDetails extends PureComponent {
   async componentDidMount() {
     const characterId = this.props.match.params.id;
 
-    await this.props.fetchCharacter(characterId);
+    const cachedData = JSON.parse(
+      sessionStorage.getItem(`people-details-${characterId}`),
+    );
 
-    const { details: { homeworld, vehicles } = {} } = this.props;
+    if (!cachedData) {
+      await this.props.fetchCharacter(characterId);
 
-    if (homeworld) {
-      this.props.fetchPlanetInfo(homeworld);
-    }
+      const { details: { homeworld, vehicles } = {} } = this.props;
 
-    if (vehicles) {
-      this.props.fetchAdditionalPeopleData(vehicles);
+      if (homeworld) {
+        await this.props.fetchPlanetInfo(homeworld);
+      }
+
+      if (vehicles) {
+        await this.props.fetchAdditionalPeopleData(vehicles);
+      }
+
+      const { planet, vehiclesNames, details } = this.props;
+
+      const dataToSave = {
+        character: details,
+        world: planet,
+        vehicleNames: vehiclesNames,
+      };
+
+      sessionStorage.setItem(
+        `people-details-${characterId}`,
+        JSON.stringify(dataToSave),
+      );
+    } else {
+      const cachedData = JSON.parse(
+        sessionStorage.getItem(`people-details-${characterId}`),
+      );
+
+      this.props.setCachedData(cachedData);
     }
   }
 
