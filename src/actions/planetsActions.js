@@ -1,5 +1,5 @@
 import swapi from '../apis/swapi';
-import { setBusy, setError } from './';
+import { setBusy, setError, setPage } from './';
 
 export const SET_PLANETS = 'SET_PLANETS';
 export const SET_PLANET = 'SET_PLANET';
@@ -29,6 +29,7 @@ export const setResidents = data => {
 export const fetchPlanets = () => async dispatch => {
   dispatch(setError(null));
   dispatch(setBusy(true));
+  dispatch(setPage(1));
 
   try {
     const {

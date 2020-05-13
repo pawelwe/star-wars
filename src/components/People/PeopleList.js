@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import Pager from '../Pager/Pager';
 import * as actions from '../../actions/';
 import {
   compareValues,
   extractLastUrlPartFromUrlString,
-} from '../../utils/utils';
+  calculateVisibleRange,
+} from '../../utils/utils.js';
 import styles from './PeopleList.scss';
 import avatar from './assets/avatar.jpg';
 
@@ -15,7 +17,7 @@ export class PeopleList extends PureComponent {
   }
 
   render() {
-    const { peopleList } = this.props;
+    const { peopleList, allPeopleCount } = this.props;
 
     if (!peopleList || peopleList.length === 0) return null;
 
@@ -32,6 +34,7 @@ export class PeopleList extends PureComponent {
             </li>
           ))}
         </ul>
+        <Pager itemsCount={allPeopleCount} />
       </main>
     );
   }
@@ -41,10 +44,15 @@ const mapStateToProps = state => {
   const {
     people: { list: peopleList },
     main,
+    main: { currentPage },
   } = state;
 
   return {
-    peopleList: peopleList.sort(compareValues('name')),
+    peopleList: calculateVisibleRange(
+      peopleList.sort(compareValues('name')),
+      currentPage,
+    ),
+    allPeopleCount: peopleList.length,
     ...main,
   };
 };

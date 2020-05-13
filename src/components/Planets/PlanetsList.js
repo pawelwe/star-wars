@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as actions from '../../actions/';
 import {
+  calculateVisibleRange,
   compareValues,
   extractLastUrlPartFromUrlString,
 } from '../../utils/utils';
+import Pager from '../Pager/Pager';
 
 class PlanetsList extends PureComponent {
   componentDidMount() {
@@ -13,7 +15,7 @@ class PlanetsList extends PureComponent {
   }
 
   render() {
-    const { planetsList } = this.props;
+    const { planetsList, allPlanetsCount } = this.props;
 
     if (!planetsList || planetsList.length === 0) return null;
 
@@ -29,6 +31,7 @@ class PlanetsList extends PureComponent {
             </li>
           ))}
         </ul>
+        <Pager itemsCount={allPlanetsCount} />
       </main>
     );
   }
@@ -38,10 +41,15 @@ const mapStateToProps = state => {
   const {
     planets: { list: planetsList },
     main,
+    main: { currentPage },
   } = state;
 
   return {
-    planetsList: planetsList.sort(compareValues('name')),
+    planetsList: calculateVisibleRange(
+      planetsList.sort(compareValues('name')),
+      currentPage,
+    ),
+    allPlanetsCount: planetsList.length,
     ...main,
   };
 };

@@ -1,5 +1,5 @@
 import swapi from '../apis/swapi';
-import { setBusy, setError } from './';
+import { setBusy, setError, setPage } from './';
 
 export const SET_PEOPLE = 'SET_PEOPLE';
 export const SET_CHARACTER = 'SET_CHARACTER';
@@ -37,6 +37,7 @@ export const setUserVehicles = data => {
 export const fetchPeople = () => async dispatch => {
   dispatch(setError(null));
   dispatch(setBusy(true));
+  dispatch(setPage(1));
 
   try {
     const {
