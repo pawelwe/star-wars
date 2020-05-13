@@ -38,7 +38,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     ...main,
-    allPeopleCount: ownProps.allPeopleCount,
+    itemsCount: ownProps.itemsCount,
   };
 };
 
