@@ -32,9 +32,7 @@ export const calculateVisibleRange = (itemsArray, currentPage) => {
   let start =
     currentPage === 1 ? 0 : currentPage * config.pageItems - config.pageItems;
   let end =
-    currentPage === 1
-      ? config.pageItems
-      : currentPage * config.pageItems - config.pageItems + config.pageItems;
+    currentPage === 1 ? config.pageItems : currentPage * config.pageItems;
 
   return itemsArray.slice(start, end);
 };
