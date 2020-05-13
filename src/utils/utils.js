@@ -28,7 +28,7 @@ export const compareValues = (key, order = 'asc') => {
 };
 
 export const calculateVisibleRange = (itemsArray, currentPage) => {
-  if (!itemsArray || itemsArray.length === 0) return;
+  if (!itemsArray || itemsArray.length === 0) return [];
   let start =
     currentPage === 1 ? 0 : currentPage * config.pageItems - config.pageItems;
   let end =
