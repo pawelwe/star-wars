@@ -13,13 +13,15 @@ export class PeopleDetails extends PureComponent {
 
     await this.props.fetchCharacter(characterId);
 
-    const {
-      details: { homeworld, vehicles },
-    } = this.props;
+    const { details: { homeworld, vehicles } = {} } = this.props;
 
-    this.props.fetchPlanetInfo(homeworld);
+    if (homeworld) {
+      this.props.fetchPlanetInfo(homeworld);
+    }
 
-    this.props.fetchAdditionalPeopleData(vehicles);
+    if (vehicles) {
+      this.props.fetchAdditionalPeopleData(vehicles);
+    }
   }
 
   render() {

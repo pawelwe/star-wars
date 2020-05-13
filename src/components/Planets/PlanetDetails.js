@@ -11,11 +11,11 @@ class PlanetDetails extends PureComponent {
 
     await this.props.fetchPlanet(planetId);
 
-    const {
-      details: { residents },
-    } = this.props;
+    const { details: { residents } = {} } = this.props;
 
-    this.props.fetchAdditionalResidentsData(residents);
+    if (residents) {
+      this.props.fetchAdditionalResidentsData(residents);
+    }
   }
 
   render() {

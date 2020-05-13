@@ -11,11 +11,11 @@ class VehicleDetails extends PureComponent {
 
     await this.props.fetchVehicle(vehicleId);
 
-    const {
-      details: { pilots },
-    } = this.props;
+    const { details: { pilots } = {} } = this.props;
 
-    this.props.fetchAdditionalUsersData(pilots);
+    if (pilots) {
+      this.props.fetchAdditionalUsersData(pilots);
+    }
   }
 
   render() {
