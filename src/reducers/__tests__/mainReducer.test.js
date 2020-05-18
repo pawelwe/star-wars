@@ -15,4 +15,11 @@ describe('Main reducer', () => {
 
     expect(newState).toStrictEqual({ error: '404' });
   });
+
+  it(`should handle ${actions.SET_PAGE} action`, () => {
+    const action = actions.setPage(2);
+    const newState = mainReducer({}, action);
+
+    expect(newState).toStrictEqual({ currentPage: 2 });
+  });
 });

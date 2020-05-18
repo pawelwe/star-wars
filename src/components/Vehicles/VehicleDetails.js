@@ -6,7 +6,7 @@ import styles from './VehiclesDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 import { loadData, saveData } from '../../utils/utils';
 
-class VehicleDetails extends PureComponent {
+export class VehicleDetails extends PureComponent {
   async componentDidMount() {
     const vehicleId = this.props.match.params.id;
     const cachedData = loadData(`vehicle-details-${vehicleId}`);
@@ -36,7 +36,7 @@ class VehicleDetails extends PureComponent {
     const { name, vehicle_class, pilots, userNames } = details;
 
     return (
-      <main className={`${styles['details']} fade-in`}>
+      <main className={`${styles['details']} fade-in`} data-testid="vehicle-details">
         <h2>{name}</h2>
         <ul>
           <li>

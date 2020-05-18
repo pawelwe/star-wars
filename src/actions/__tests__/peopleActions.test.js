@@ -25,9 +25,9 @@ describe('People actions', () => {
     expect(action.type).toEqual(actions.SET_USER_VEHICLES);
   });
 
-  it(`${actions.setUserVehicles.name} has correct type`, () => {
-    const action = actions.setUserVehicles();
+  it(`${actions.setUserCachedData.name} has correct type`, () => {
+    const action = actions.setUserCachedData();
 
-    expect(action.type).toEqual(actions.SET_USER_VEHICLES);
+    expect(action.type).toEqual(actions.SET_USER_CACHED_DATA);
   });
 });

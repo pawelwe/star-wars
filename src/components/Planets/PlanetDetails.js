@@ -6,7 +6,7 @@ import styles from './PlanetDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
 import { loadData, saveData } from '../../utils/utils';
 
-class PlanetDetails extends PureComponent {
+export class PlanetDetails extends PureComponent {
   async componentDidMount() {
     const planetId = this.props.match.params.id;
     const cachedData = loadData(`planet-details-${planetId}`);
@@ -36,7 +36,7 @@ class PlanetDetails extends PureComponent {
     const { name, population, residents, residentsNames } = details;
 
     return (
-      <main className={`${styles['details']} fade-in`}>
+      <main className={`${styles['details']} fade-in`} data-testid="planet-details">
         <h2>{name}</h2>
         <ul>
           <li>

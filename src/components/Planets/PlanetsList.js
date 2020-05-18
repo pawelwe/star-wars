@@ -11,7 +11,7 @@ import {
 } from '../../utils/utils';
 import Pager from '../Pager/Pager';
 
-class PlanetsList extends PureComponent {
+export class PlanetsList extends PureComponent {
   async componentDidMount() {
     const cachedData = loadData(`planets-list`);
 
@@ -32,7 +32,7 @@ class PlanetsList extends PureComponent {
     if (!planetsList || planetsList.length === 0) return null;
 
     return (
-      <main className="fade-in">
+      <main className="fade-in" data-testid="planets-list">
         <h2>Planets</h2>
         <ul>
           {planetsList.map(({ name, url }) => (
