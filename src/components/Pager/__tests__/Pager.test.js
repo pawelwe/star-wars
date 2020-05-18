@@ -32,4 +32,34 @@ describe('Pager component', () => {
 
     expect(setPage).toBeCalledTimes(1);
   });
+
+  it('should invoke callback on going to prev page', () => {
+    const setPage = jest.fn();
+
+    const { getByTestId } = render(
+      <Pager currentPage={2} itemsCount={3} setPage={setPage} />,
+    );
+
+    const pager = getByTestId('pager');
+    const link1 = getByText(pager, 'prev');
+
+    fireEvent.click(link1);
+
+    expect(setPage).toBeCalledTimes(1);
+  });
+
+  it('should invoke callback on going to next page', () => {
+    const setPage = jest.fn();
+
+    const { getByTestId } = render(
+      <Pager currentPage={2} itemsCount={10} setPage={setPage} />,
+    );
+
+    const pager = getByTestId('pager');
+    const link1 = getByText(pager, 'next');
+
+    fireEvent.click(link1);
+
+    expect(setPage).toBeCalledTimes(1);
+  });
 });
