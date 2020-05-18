@@ -1,3 +1,3 @@
 export default {
-  pageItems: 5,
+  pageItems: 4,
 };

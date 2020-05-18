@@ -4,26 +4,36 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../actions/';
 import styles from './PlanetDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
+import { loadData, saveData } from '../../utils/utils';
 
 class PlanetDetails extends PureComponent {
   async componentDidMount() {
     const planetId = this.props.match.params.id;
+    const cachedData = loadData(`planet-details-${planetId}`);
 
-    await this.props.fetchPlanet(planetId);
+    if (!cachedData) {
+      await this.props.fetchPlanet(planetId);
 
-    const { details: { residents } = {} } = this.props;
+      const { details: { residents } = {} } = this.props;
 
-    if (residents) {
-      this.props.fetchAdditionalResidentsData(residents);
+      if (residents) {
+        await this.props.fetchAdditionalResidentsData(residents);
+      }
+
+      const { details } = this.props;
+
+      saveData(details, `planet-details-${planetId}`);
+    } else {
+      this.props.setPlanetsCachedData(cachedData);
     }
   }
 
   render() {
-    const { details, residentsNames, isBusy } = this.props;
+    const { details, isBusy } = this.props;
 
     if (!details) return null;
 
-    const { name, population, residents } = details;
+    const { name, population, residents, residentsNames } = details;
 
     return (
       <main className={`${styles['details']} fade-in`}>
@@ -51,13 +61,12 @@ class PlanetDetails extends PureComponent {
 
 const mapStateToProps = state => {
   const {
-    planets: { planet, residentsNames },
+    planets: { planet },
     main: { isBusy },
   } = state;
 
   return {
-    details: planet,
-    residentsNames,
+    details: { ...planet },
     isBusy,
   };
 };

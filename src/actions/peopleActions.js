@@ -5,7 +5,7 @@ export const SET_PEOPLE = 'SET_PEOPLE';
 export const SET_CHARACTER = 'SET_CHARACTER';
 export const SET_WORLD = 'SET_WORLD';
 export const SET_USER_VEHICLES = 'SET_USER_VEHICLES';
-export const SET_CACHED_DATA = 'SET_CACHED_DATA';
+export const SET_USER_CACHED_DATA = 'SET_USER_CACHED_DATA';
 
 export const setPeople = data => {
   return {
@@ -35,17 +35,12 @@ export const setUserVehicles = data => {
   };
 };
 
-export const setCachedData = data => {
+export const setUserCachedData = data => {
   return {
-    type: SET_CACHED_DATA,
+    type: SET_USER_CACHED_DATA,
     payload: data,
   };
 };
-
-// export const dispatchSetCachedData = data => dispatch => {
-//   debugger
-//   dispatch(setCachedData(data));
-// };
 
 export const fetchPeople = () => async dispatch => {
   dispatch(setError(null));

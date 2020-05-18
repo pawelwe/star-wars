@@ -4,16 +4,17 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../actions/';
 import styles from './PeopleDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
-import { extractLastUrlPartFromUrlString } from '../../utils/utils';
+import {
+  extractLastUrlPartFromUrlString,
+  saveData,
+  loadData,
+} from '../../utils/utils';
 import avatar from './assets/avatar.jpg';
 
 export class PeopleDetails extends PureComponent {
   async componentDidMount() {
     const characterId = this.props.match.params.id;
-
-    const cachedData = JSON.parse(
-      sessionStorage.getItem(`people-details-${characterId}`),
-    );
+    const cachedData = loadData(`people-details-${characterId}`);
 
     if (!cachedData) {
       await this.props.fetchCharacter(characterId);
@@ -27,34 +28,20 @@ export class PeopleDetails extends PureComponent {
       if (vehicles) {
         await this.props.fetchAdditionalPeopleData(vehicles);
       }
+      const { details } = this.props;
 
-      const { planet, vehiclesNames, details } = this.props;
-
-      const dataToSave = {
-        character: details,
-        world: planet,
-        vehicleNames: vehiclesNames,
-      };
-
-      sessionStorage.setItem(
-        `people-details-${characterId}`,
-        JSON.stringify(dataToSave),
-      );
+      saveData(details, `people-details-${characterId}`);
     } else {
-      const cachedData = JSON.parse(
-        sessionStorage.getItem(`people-details-${characterId}`),
-      );
-
-      this.props.setCachedData(cachedData);
+      this.props.setUserCachedData(cachedData);
     }
   }
 
   render() {
-    const { details, planet, vehiclesNames, isBusy } = this.props;
+    const { details, isBusy } = this.props;
 
     if (!details) return null;
 
-    const { name, homeworld, gender, vehicles } = details;
+    const { name, homeworld, gender, vehicles, world, vehiclesNames } = details;
 
     return (
       <main
@@ -81,7 +68,7 @@ export class PeopleDetails extends PureComponent {
             <NavLink
               to={`/planets/${extractLastUrlPartFromUrlString(homeworld)}`}
             >
-              {planet}
+              {world}
             </NavLink>
           </li>
         </ul>
@@ -94,14 +81,12 @@ export class PeopleDetails extends PureComponent {
 
 const mapStateToProps = state => {
   const {
-    people: { character, world, vehiclesNames },
+    people: { character },
     main: { isBusy },
   } = state;
 
   return {
-    details: character,
-    planet: world,
-    vehiclesNames,
+    details: { ...character },
     isBusy,
   };
 };

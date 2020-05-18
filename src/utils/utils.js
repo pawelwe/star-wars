@@ -36,3 +36,24 @@ export const calculateVisibleRange = (itemsArray, currentPage) => {
 
   return itemsArray.slice(start, end);
 };
+
+export const saveData = (data, id) => {
+  try {
+    sessionStorage.setItem(id, JSON.stringify(data));
+    return data;
+  } catch (err) {
+    console.warn(err);
+  }
+};
+
+export const loadData = id => {
+  try {
+    const data = JSON.parse(sessionStorage.getItem(id));
+    if (data === null) {
+      return undefined;
+    }
+    return data;
+  } catch (err) {
+    return undefined;
+  }
+};

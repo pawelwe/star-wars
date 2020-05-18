@@ -4,26 +4,36 @@ import { NavLink } from 'react-router-dom';
 import * as actions from '../../actions/';
 import styles from './VehiclesDetails.scss';
 import { DetailsList } from '../DetailsList/DetailsList';
+import { loadData, saveData } from '../../utils/utils';
 
 class VehicleDetails extends PureComponent {
   async componentDidMount() {
     const vehicleId = this.props.match.params.id;
+    const cachedData = loadData(`vehicle-details-${vehicleId}`);
 
-    await this.props.fetchVehicle(vehicleId);
+    if (!cachedData) {
+      await this.props.fetchVehicle(vehicleId);
 
-    const { details: { pilots } = {} } = this.props;
+      const { details: { pilots } = {} } = this.props;
 
-    if (pilots) {
-      this.props.fetchAdditionalUsersData(pilots);
+      if (pilots) {
+        await this.props.fetchAdditionalUsersData(pilots);
+      }
+
+      const { details } = this.props;
+
+      saveData(details, `vehicle-details-${vehicleId}`);
+    } else {
+      this.props.setVehiclesCachedData(cachedData);
     }
   }
 
   render() {
-    const { details, userNames, isBusy } = this.props;
+    const { details, isBusy } = this.props;
 
     if (!details) return null;
 
-    const { name, vehicle_class, pilots } = details;
+    const { name, vehicle_class, pilots, userNames } = details;
 
     return (
       <main className={`${styles['details']} fade-in`}>
@@ -51,13 +61,12 @@ class VehicleDetails extends PureComponent {
 
 const mapStateToProps = state => {
   const {
-    vehicles: { vehicle, userNames },
+    vehicles: { vehicle },
     main: { isBusy },
   } = state;
 
   return {
-    details: vehicle,
-    userNames,
+    details: { ...vehicle },
     isBusy,
   };
 };

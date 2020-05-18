@@ -4,15 +4,16 @@ import { setBusy, setError, setPage } from './';
 export const SET_VEHICLES = 'SET_VEHICLES';
 export const SET_VEHICLE = 'SET_VEHICLE';
 export const SET_USER_NAMES = 'SET_USER_NAMES';
+export const SET_VEHICLES_CACHED_DATA = 'SET_VEHICLES_CACHED_DATA';
 
-const setVehicles = data => {
+export const setVehicles = data => {
   return {
     type: SET_VEHICLES,
     payload: data,
   };
 };
 
-const setVehicle = data => {
+export const setVehicle = data => {
   return {
     type: SET_VEHICLE,
     payload: data,
@@ -22,6 +23,13 @@ const setVehicle = data => {
 export const setUserNames = data => {
   return {
     type: SET_USER_NAMES,
+    payload: data,
+  };
+};
+
+export const setVehiclesCachedData = data => {
+  return {
+    type: SET_VEHICLES_CACHED_DATA,
     payload: data,
   };
 };
@@ -65,7 +73,7 @@ export const fetchAdditionalUsersData = dataUrlArray => dispatch => {
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));
 
-  Promise.all(dataPromises)
+  return Promise.all(dataPromises)
     .then(values => {
       const mappedData = values.map(item => {
         return item.data.name;

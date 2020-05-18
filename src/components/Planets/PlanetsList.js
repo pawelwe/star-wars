@@ -6,12 +6,24 @@ import {
   calculateVisibleRange,
   compareValues,
   extractLastUrlPartFromUrlString,
+  loadData,
+  saveData,
 } from '../../utils/utils';
 import Pager from '../Pager/Pager';
 
 class PlanetsList extends PureComponent {
-  componentDidMount() {
-    this.props.fetchPlanets();
+  async componentDidMount() {
+    const cachedData = loadData(`planets-list`);
+
+    if (!cachedData) {
+      await this.props.fetchPlanets();
+
+      const { allPlanetsList } = this.props;
+
+      saveData(allPlanetsList, `planets-list`);
+    } else {
+      this.props.setPlanets(cachedData);
+    }
   }
 
   render() {
@@ -49,6 +61,7 @@ const mapStateToProps = state => {
       planetsList.sort(compareValues('name')),
       currentPage,
     ),
+    allPlanetsList: planetsList,
     allPlanetsCount: planetsList.length,
     ...main,
   };

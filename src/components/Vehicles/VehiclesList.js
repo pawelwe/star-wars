@@ -6,12 +6,24 @@ import {
   calculateVisibleRange,
   compareValues,
   extractLastUrlPartFromUrlString,
+  loadData,
+  saveData,
 } from '../../utils/utils';
 import Pager from '../Pager/Pager';
 
 class VehiclesList extends PureComponent {
-  componentDidMount() {
-    this.props.fetchVehicles();
+  async componentDidMount() {
+    const cachedData = loadData(`vehicles-list`);
+
+    if (!cachedData) {
+      await this.props.fetchVehicles();
+
+      const { allVehiclesList } = this.props;
+
+      saveData(allVehiclesList, `vehicles-list`);
+    } else {
+      this.props.setVehicles(cachedData);
+    }
   }
 
   render() {
@@ -49,6 +61,7 @@ const mapStateToProps = state => {
       vehicleList.sort(compareValues('name')),
       currentPage,
     ),
+    allVehiclesList: vehicleList,
     allVehiclesCount: vehicleList.length,
     ...main,
   };

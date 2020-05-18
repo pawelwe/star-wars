@@ -10,10 +10,21 @@ import {
 } from '../../utils/utils.js';
 import styles from './PeopleList.scss';
 import avatar from './assets/avatar.jpg';
+import { loadData, saveData } from '../../utils/utils';
 
 export class PeopleList extends PureComponent {
-  componentDidMount() {
-    this.props.fetchPeople();
+  async componentDidMount() {
+    const cachedData = loadData(`people-list`);
+
+    if (!cachedData) {
+      await this.props.fetchPeople();
+
+      const { allPeopleList } = this.props;
+
+      saveData(allPeopleList, `people-list`);
+    } else {
+      this.props.setPeople(cachedData);
+    }
   }
 
   render() {
@@ -52,6 +63,7 @@ const mapStateToProps = state => {
       peopleList.sort(compareValues('name')),
       currentPage,
     ),
+    allPeopleList: peopleList,
     allPeopleCount: peopleList.length,
     ...main,
   };

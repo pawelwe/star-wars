@@ -4,15 +4,16 @@ import { setBusy, setError, setPage } from './';
 export const SET_PLANETS = 'SET_PLANETS';
 export const SET_PLANET = 'SET_PLANET';
 export const SET_RESIDENTS = 'SET_RESIDENTS';
+export const SET_PLANETS_CACHED_DATA = 'SET_PLANETS_CACHED_DATA';
 
-const setPeople = data => {
+export const setPlanets = data => {
   return {
     type: SET_PLANETS,
     payload: data,
   };
 };
 
-const setCharacter = data => {
+export const setPlanet = data => {
   return {
     type: SET_PLANET,
     payload: data,
@@ -22,6 +23,13 @@ const setCharacter = data => {
 export const setResidents = data => {
   return {
     type: SET_RESIDENTS,
+    payload: data,
+  };
+};
+
+export const setPlanetsCachedData = data => {
+  return {
+    type: SET_PLANETS_CACHED_DATA,
     payload: data,
   };
 };
@@ -36,7 +44,7 @@ export const fetchPlanets = () => async dispatch => {
       data: { results },
     } = await swapi.get('/planets');
 
-    dispatch(setPeople(results));
+    dispatch(setPlanets(results));
     dispatch(setBusy(false));
   } catch ({ message }) {
     dispatch(setError(message));
@@ -51,7 +59,7 @@ export const fetchPlanet = id => async dispatch => {
   try {
     const { data } = await swapi.get(`/planets/${id}`);
 
-    dispatch(setCharacter(data));
+    dispatch(setPlanet(data));
     dispatch(setBusy(false));
   } catch ({ message }) {
     dispatch(setError(message));
@@ -65,7 +73,7 @@ export const fetchAdditionalResidentsData = dataUrlArray => dispatch => {
 
   const dataPromises = dataUrlArray.map(item => swapi.get(item));
 
-  Promise.all(dataPromises)
+  return Promise.all(dataPromises)
     .then(values => {
       const mappedData = values.map(item => {
         return item.data.name;

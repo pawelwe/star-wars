@@ -12,6 +12,9 @@ export const Pager = ({ currentPage, itemsCount, setPage }) => {
   return (
     <div className={styles['pager']}>
       <ul>
+        <li onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null}>
+          prev
+        </li>
         {pages.map((page, index) => {
           const currentIndexToPage = index + 1;
           return (
@@ -24,10 +27,18 @@ export const Pager = ({ currentPage, itemsCount, setPage }) => {
                   : null
               }
             >
-              Page {currentIndexToPage}
+              {currentIndexToPage}
             </li>
           );
         })}
+
+        <li
+          onClick={
+            currentPage < pages.length ? () => setPage(currentPage + 1) : null
+          }
+        >
+          next
+        </li>
       </ul>
     </div>
   );
