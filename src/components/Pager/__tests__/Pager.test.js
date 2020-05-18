@@ -41,9 +41,9 @@ describe('Pager component', () => {
     );
 
     const pager = getByTestId('pager');
-    const link1 = getByText(pager, 'prev');
+    const prevLink = getByText(pager, 'prev');
 
-    fireEvent.click(link1);
+    fireEvent.click(prevLink);
 
     expect(setPage).toBeCalledTimes(1);
   });
@@ -56,9 +56,9 @@ describe('Pager component', () => {
     );
 
     const pager = getByTestId('pager');
-    const link1 = getByText(pager, 'next');
+    const nextLink = getByText(pager, 'next');
 
-    fireEvent.click(link1);
+    fireEvent.click(nextLink);
 
     expect(setPage).toBeCalledTimes(1);
   });
