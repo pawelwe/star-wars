@@ -20,13 +20,17 @@ describe('People reducer', () => {
     const action = actions.setWorld('Tatooine');
     const newState = peopleReducer({}, action);
 
-    expect(newState).toEqual({ world: 'Tatooine' });
+    expect(newState).toEqual({ character: { world: 'Tatooine' } });
   });
 
   it(`should handle ${actions.SET_USER_VEHICLES} action`, () => {
     const action = actions.setUserVehicles(['x-wing']);
     const newState = peopleReducer({}, action);
 
-    expect(newState).toEqual({ vehiclesNames: ['x-wing'] });
+    expect(newState).toEqual({
+      character: {
+        vehiclesNames: ['x-wing'],
+      },
+    });
   });
 });

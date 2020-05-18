@@ -10,7 +10,7 @@ export const Pager = ({ currentPage, itemsCount, setPage }) => {
   const pages = Array(Math.ceil(itemsCount / config.pageItems)).fill(null);
 
   return (
-    <div className={styles['pager']}>
+    <div className={styles['pager']} data-testid="pager">
       <ul>
         <li onClick={currentPage > 1 ? () => setPage(currentPage - 1) : null}>
           prev
