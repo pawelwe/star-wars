@@ -5,9 +5,16 @@ import thunkMiddleware from 'redux-thunk';
 import swapi from '../../apis/swapi';
 import MockAdapter from 'axios-mock-adapter';
 
-let mockAdapter = new MockAdapter(swapi);
+let mockAdapter;
 
-afterEach(cleanup);
+beforeEach(() => {
+  mockAdapter = new MockAdapter(swapi);
+});
+
+afterEach(() => {
+  cleanup();
+  mockAdapter = null;
+});
 
 describe('People actions', () => {
   it(`${actions.setPeople.name} has correct type`, () => {
@@ -64,8 +71,52 @@ describe('People actions', () => {
       expect(storeActions[0]).toEqual(actions.setError(null));
       expect(storeActions[1]).toEqual(actions.setBusy(true));
       expect(storeActions[2]).toEqual(actions.setPage(1));
-      expect(storeActions[3]).toStrictEqual(actions.setPeople(responseMock));
+      expect(storeActions[3]).toEqual(actions.setPeople(responseMock));
       expect(storeActions[4]).toEqual(actions.setBusy(false));
+    });
+  });
+
+  it(`${actions.fetchCharacter.name} dispatches correct actions`, async () => {
+    const responseMock = {
+      name: 'Luke Skywalker',
+      height: '172',
+      mass: '77',
+      hair_color: 'blond',
+      skin_color: 'fair',
+    };
+
+    mockAdapter.onGet(swapi.baseUrl).replyOnce(200, responseMock);
+
+    const mockStore = configureStore([thunkMiddleware]);
+    const store = mockStore({});
+
+    await store.dispatch(actions.fetchCharacter(1)).then(() => {
+      const storeActions = store.getActions();
+
+      expect(storeActions[0]).toEqual(actions.setError(null));
+      expect(storeActions[1]).toEqual(actions.setBusy(true));
+      expect(storeActions[2]).toEqual(actions.setCharacter(responseMock));
+      expect(storeActions[3]).toEqual(actions.setBusy(false));
+    });
+  });
+
+  it(`${actions.fetchPlanetInfo.name} dispatches correct actions`, async () => {
+    const responseMock = {
+      name: 'Alderan',
+    };
+
+    mockAdapter.onGet(swapi.baseUrl).replyOnce(200, responseMock);
+
+    const mockStore = configureStore([thunkMiddleware]);
+    const store = mockStore({});
+
+    await store.dispatch(actions.fetchPlanetInfo('/infoUrl')).then(() => {
+      const storeActions = store.getActions();
+
+      expect(storeActions[0]).toEqual(actions.setError(null));
+      expect(storeActions[1]).toEqual(actions.setBusy(true));
+      expect(storeActions[2]).toEqual(actions.setWorld(responseMock.name));
+      expect(storeActions[3]).toEqual(actions.setBusy(false));
     });
   });
 });
