@@ -15,7 +15,7 @@ export const DetailsList = ({ links, namesList, linkPrefix, isBusy }) => {
 
   return links.map((link, index) => {
     const detailId = extractLastUrlPartFromUrlString(link);
-    const detailsPath = `${linkPrefix}/${detailId}`;
+    const detailPath = `${linkPrefix}/${detailId}`;
     const isNotLastItem = index !== links.length - 1;
     const detailName =
       typeof namesList[index] === 'string'
@@ -24,7 +24,7 @@ export const DetailsList = ({ links, namesList, linkPrefix, isBusy }) => {
 
     return (
       <span key={index} className={styles['detail-link']}>
-        <NavLink to={detailsPath}>{detailName} </NavLink>
+        <NavLink to={detailPath}>{detailName} </NavLink>
       </span>
     );
   });
