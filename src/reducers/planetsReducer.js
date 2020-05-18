@@ -13,18 +13,18 @@ const initialState = {
 export const planetsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_PLANETS:
-      return { ...state, list: action.payload };
+      return { ...state, list: JSON.parse(JSON.stringify(action.payload)) };
     case SET_PLANET:
-      return { ...state, planet: action.payload };
+      return { ...state, planet: JSON.parse(JSON.stringify(action.payload)) };
     case SET_RESIDENTS:
       return {
         ...state,
-        planet: { ...state.planet, residentsNames: action.payload },
+        planet: { ...state.planet, residentsNames: [...action.payload] },
       };
     case SET_PLANETS_CACHED_DATA:
       return {
         ...state,
-        planet: Object.assign({}, action.payload),
+        planet: JSON.parse(JSON.stringify(action.payload)),
       };
     default:
       return state;

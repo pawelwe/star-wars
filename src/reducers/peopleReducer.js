@@ -14,9 +14,12 @@ const initialState = {
 export const peopleReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_PEOPLE:
-      return { ...state, list: action.payload };
+      return { ...state, list: JSON.parse(JSON.stringify(action.payload)) };
     case SET_CHARACTER:
-      return { ...state, character: action.payload };
+      return {
+        ...state,
+        character: JSON.parse(JSON.stringify(action.payload)),
+      };
     case SET_WORLD:
       return {
         ...state,
@@ -25,12 +28,12 @@ export const peopleReducer = (state = initialState, action) => {
     case SET_USER_VEHICLES:
       return {
         ...state,
-        character: { ...state.character, vehiclesNames: action.payload },
+        character: { ...state.character, vehiclesNames: [...action.payload] },
       };
     case SET_USER_CACHED_DATA:
       return {
         ...state,
-        character: Object.assign({}, action.payload),
+        character: JSON.parse(JSON.stringify(action.payload)),
       };
     default:
       return state;
