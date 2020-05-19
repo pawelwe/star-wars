@@ -8,18 +8,16 @@ import { PlanetDetails } from '../PlanetDetails.js';
 afterEach(cleanup);
 
 describe('PlanetDetails component', () => {
-  it('should render the wrapper', () => {
+  it('should render the wrapper', async () => {
     const fetchPlanet = jest.fn();
     const fetchAdditionalResidentsData = jest.fn();
-    const fetchAdditionalPeopleData = jest.fn();
 
     const { getByTestId } = render(
       <Router history={customHistory}>
         <PlanetDetails
-          details={{}}
+          details={{residents: ['Luke'] }}
           fetchPlanet={fetchPlanet}
           fetchAdditionalResidentsData={fetchAdditionalResidentsData}
-          fetchAdditionalPeopleData={fetchAdditionalPeopleData}
           match={{ params: { id: 12 } }}
         />
       </Router>,
@@ -28,6 +26,7 @@ describe('PlanetDetails component', () => {
     const planetList = getByTestId('planet-details');
 
     expect(planetList);
-    expect(fetchPlanet).toHaveBeenCalledTimes(1);
+    await expect(fetchPlanet).toHaveBeenCalledTimes(1);
+    await expect(fetchAdditionalResidentsData).toHaveBeenCalledTimes(1);
   });
 });

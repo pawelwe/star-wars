@@ -8,7 +8,7 @@ import { PeopleDetails } from '../PeopleDetails.js';
 afterEach(cleanup);
 
 describe('PeopleDetails component', () => {
-  it('should render the wrapper', () => {
+  it('should render the wrapper', async () => {
     const fetchCharacter = jest.fn();
     const fetchPlanetInfo = jest.fn();
     const fetchAdditionalPeopleData = jest.fn();
@@ -16,7 +16,7 @@ describe('PeopleDetails component', () => {
     const { getByTestId } = render(
       <Router history={customHistory}>
         <PeopleDetails
-          details={{}}
+          details={{ homeworld: 'Naboo', vehicles: ['http://api/x-wing'] }}
           fetchCharacter={fetchCharacter}
           fetchPlanetInfo={fetchPlanetInfo}
           fetchAdditionalPeopleData={fetchAdditionalPeopleData}
@@ -28,6 +28,8 @@ describe('PeopleDetails component', () => {
     const peopleList = getByTestId('people-details');
 
     expect(peopleList);
-    expect(fetchCharacter).toHaveBeenCalledTimes(1);
+    await expect(fetchCharacter).toHaveBeenCalledTimes(1);
+    await expect(fetchPlanetInfo).toHaveBeenCalledTimes(1);
+    await expect(fetchAdditionalPeopleData).toHaveBeenCalledTimes(1);
   });
 });
