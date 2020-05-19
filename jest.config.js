@@ -11,4 +11,13 @@ module.exports = {
     '^.+\\.(css|less|scss)$': 'babel-jest',
     '\\.(jpg|jpeg|png|gif)$': '<rootDir>/fileMock.js',
   },
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    '<rootDir>/src/index.js',
+    '<rootDir>/src/apis',
+    '<rootDir>/src/config.js',
+    '<rootDir>/src/reducers/index.js',
+    '<rootDir>/src/actions/index.js',
+    '<rootDir>/src/history.js'
+  ],
 };
