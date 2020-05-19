@@ -14,11 +14,19 @@ describe('Messages component', () => {
     expect(messages);
   });
 
-  it('should render error message on error', () => {
+  it('should render error message wrapper on error', () => {
     const { getByTestId } = render(<Messages error="404" />);
 
     const messages = getByTestId('error');
 
     expect(messages).toHaveTextContent('404');
+  });
+
+  it('should render preloader', () => {
+    const { getByTestId } = render(<Messages isBusy />);
+
+    const preloader = getByTestId('preloader');
+
+    expect(preloader);
   });
 });

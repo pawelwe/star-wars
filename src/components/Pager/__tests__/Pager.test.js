@@ -18,6 +18,18 @@ describe('Pager component', () => {
     expect(pager);
   });
 
+  it('should show correct number of links', () => {
+    const setPage = jest.fn();
+
+    const { container } = render(
+      <Pager currentPage={1} itemsCount={9} setPage={setPage} />,
+    );
+
+    const links = container.querySelectorAll('li');
+
+    expect(links.length).toBe(5);
+  });
+
   it('should invoke callback on page change', () => {
     const setPage = jest.fn();
 

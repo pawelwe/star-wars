@@ -22,7 +22,7 @@ const store = configureStore();
 export const StarWars = () => {
   return (
     <Provider store={store}>
-      <div className={styles['main-wrapper']}>
+      <div className={styles['main-wrapper']} data-testid="app-wrapper">
         <ErrorBoundary>
           <Router history={customHistory}>
             <SideBar />
