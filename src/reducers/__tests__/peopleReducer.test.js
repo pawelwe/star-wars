@@ -1,5 +1,6 @@
 import * as actions from '../../actions/';
 import { peopleReducer } from '../peopleReducer';
+import { vehiclesReducer } from '../vehiclesReducer';
 
 describe('People reducer', () => {
   it(`should handle ${actions.SET_PEOPLE} action`, () => {
@@ -31,6 +32,15 @@ describe('People reducer', () => {
       character: {
         vehiclesNames: ['x-wing'],
       },
+    });
+  });
+
+  it(`should handle ${actions.SET_USER_CACHED_DATA} action`, () => {
+    const action = actions.setUserCachedData([{ name: 'Anakin' }]);
+    const newState = peopleReducer({}, action);
+
+    expect(newState).toEqual({
+      character: [{ name: 'Anakin' }],
     });
   });
 });
