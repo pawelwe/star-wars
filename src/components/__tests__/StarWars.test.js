@@ -11,7 +11,7 @@ describe('StarWars component', () => {
 
     const app = getByTestId('app-wrapper');
     const sideBar = getByTestId('sidebar');
-    const messages = getByTestId('sidebar');
+    const messages = getByTestId('messages');
 
     expect(app);
     expect(sideBar);
